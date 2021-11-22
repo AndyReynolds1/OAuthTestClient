@@ -1,0 +1,30 @@
+.alert.alert-primary(role="alert")
+    p This process requests an 
+        strong access token 
+        |directly from the authorization endpoint, which means everything happens client side.
+
+.alert.alert-warning(role="alert")
+    p This requires an admin to enable this feature on the application in Azure before it can be used!
+
+.alert.alert-info(role="alert")
+    h4.alert-heading Options
+    dl.row
+        dt.col-sm-2 response_type
+        dd.col-sm-10 Use 
+            strong token 
+            | in the 
+            strong
+                |response_type  
+            | to use the implcit flow.
+        dt.col-sm-2 scope
+        dd.col-sm-10 A space separated list of scopes you want to user to consent to.
+        dt.col-sm-2 response_mode
+        dd.col-sm-10 Request the response returned in either url fragment or POST data.  Query string is not permitted in this flow.
+        dt.col-sm-2 state
+        dd.col-sm-10 An optional parameter that can be used to pass data in the request that will be returned in the token response. 
+            |A randomly generated unique value is typically used for preventing cross-site request forgery attacks. 
+            |The value can also encode information about the user's state in the app before the authentication request occurred, such as the page or view they were on.
+        dt.col-sm-2 nonce
+        dd.col-sm-10 This will be included in the resulting 
+            strong id_token 
+            |as a claim. The app can then verify this value to mitigate token replay attacks. The value is typically a randomized, unique string that can be used to identify the origin of the request.

@@ -1,0 +1,30 @@
+.alert.alert-primary(role="alert")
+    p This process makes a request to the devicecode endpoint which returns a 
+        strong device_code  
+        |, 
+        strong user_code 
+        |and 
+        strong verification_uri
+        |.
+    p The user is then asked to go to the 
+        strong verification_uri 
+        |and enter the 
+        strong user_code 
+        |to grant consent.
+    p Meanwhile the device polls the token endpoint using the 
+        strong device_code 
+        |,which will return an 
+        strong access_token 
+        |once the user has granted consent.
+
+.alert.alert-warning(role="alert")
+    p This requires an admin to enable public client flows on the app registration in Azure before it can be used!
+
+
+.alert.alert-info(role="alert")
+    h4.alert-heading Options
+    dl.row
+        dt.col-sm-2 client_id
+        dd.col-sm-10 The application ID.
+        dt.col-sm-2 scope
+        dd.col-sm-10 A space separated list of scopes you want to user to consent to.

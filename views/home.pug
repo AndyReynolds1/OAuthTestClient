@@ -1,0 +1,75 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 OAuth 2.0 Test Client
+        p.lead A test client for different OAuth 2.0 flows
+    h2 Grant Types
+    
+    .row.mt-5
+        .col-sm-4
+            .card
+                .card-header Authorization Code Flow
+                .card-body
+                    p.card-text Best used by web apps running on a server.
+                    p.card-tyext Requires securely storing a secret on the web app server.
+                    div(style="margin-bottom: 6.5rem !important")
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/auth-code') Try it
+                        
+        .col-sm-4
+            .card
+                .card-header Authorization Code Flow with PKCE
+                .card-body
+                    p.card-text Extends authorization code flow with additional Proof Key for Code Exchange (PKCE).
+                    p.card-text Best for public clients that cannot securely store a secret (e.g. native and single-page apps).
+                    p.card-text This is now recommended for all application types, both public and confidential clients!
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/auth-code-pkce') Try it
+
+        .col-sm-4
+            .card
+                .card-header Client Credentials Flow
+                .card-body
+                    p.card-text Used for server-to-server interadtion that runs in the background.
+                    p.card-text Using the applications own credentials instead of impersonating a user.
+                    div(style="margin-bottom: 5rem !important")
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-client-creds-grant-flow") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/client-credentials') Try it
+        
+    .row.mt-5
+        
+        .col-sm-4
+            .card
+                .card-header Implicit Flow
+                .card-body
+                    p.card-text The web app requests an access token directly from the authorize endpoint.  All via the front channel, without the need for secrets or extra backend calls.
+                    p.card-text Not recommended!
+                    div(style="margin-bottom: 4.5rem !important")
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-implicit-grant-flow") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/implicit') Try it
+
+        .col-sm-4
+            .card
+                span.badge.bg-success.rounded-pill.position-absolute.translate-middle(style="left:92% !important; top:7% !important") OIDC
+                .card-header Hybrid Flow
+                .card-body
+                    p.cadr-text Apps that are able to securely store secrets may benefit from the use of the Hybrid Flow, which uses OIDC to allow your app to request an ID token directly from the authorize endpoint, while still providing for secure and safe retrieval of access and refresh tokens if required.
+                    div(style="margin-bottom: 2.5rem !important")
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-auth-code-flow#request-an-id-token-as-well-hybrid-flow") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/hybrid') Try it
+        
+        .col-sm-4
+            .card
+                .card-header Device Authorization Code Flow
+                .card-body
+                    p.card-text Used for input-constrained devices such as a smart TV, IoT device, printers etc.  User is presented a code to enter on a web page to authorize the device.
+                    div(style="margin-bottom: 7rem !important")
+                    .clearfix
+                        a.float-end(href="https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-oauth2-device-code") Micosoft docs
+                        a.float-start.btn.btn-primary(href='/device-code') Try it

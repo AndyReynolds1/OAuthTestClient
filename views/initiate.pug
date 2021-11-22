@@ -1,0 +1,32 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 #{title}
+        p.lead Initiate
+    
+    if settings.code_challenge
+        .alert.alert-info(role="alert")
+            strong
+                |code_challenge 
+            |is the SHA256 hash of the 
+            strong
+                |code_verifier
+            |.
+
+    .alert.alert-secondary(role="alert")
+        h4.alert-heading Settings
+        p #{authorization_endpoint}
+        
+        dl.row
+            
+            -for(var prop in settings)
+                dt.col-sm-2 #{prop}
+                dd.col-sm-10 #{settings[prop]}
+            
+    .mb-3.clearfix
+        a.btn.btn-danger.float-start(href=restartUrl role="button")
+            i.bi.bi-arrow-repeat 
+            |Restart
+        a.btn.btn-success.float-end(href=redirectUrl role="button") Start 
+            i.bi.bi-forward-fill

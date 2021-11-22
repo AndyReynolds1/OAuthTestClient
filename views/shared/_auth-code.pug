@@ -1,0 +1,22 @@
+.alert.alert-primary(role="alert")
+    p This process requests an 
+        strong authorization code 
+        | from the authorize endpoint which is then exchanged for an 
+        strong access token 
+        |from the token endpoint.
+
+.alert.alert-info(role="alert")
+    h4.alert-heading Options
+    dl.row
+        dt.col-sm-2 response_type
+        dd.col-sm-10 Use 
+            strong code 
+            |for the authorization code flow.
+        dt.col-sm-2 scope
+        dd.col-sm-10 A space separated list of scopes you want to user to consent to.
+        dt.col-sm-2 response_mode
+        dd.col-sm-10 Request the response returned in either query string, url fragment or POST data.
+        dt.col-sm-2 state
+        dd.col-sm-10 An optional parameter that can be used to pass data in the request that will be returned in the token response. 
+            |A randomly generated unique value is typically used for preventing cross-site request forgery attacks. 
+            |The value can also encode information about the user's state in the app before the authentication request occurred, such as the page or view they were on.

@@ -1,0 +1,183 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 #{title}
+        p.lead Callback
+    
+    if (path != "device-code")
+        .alert.alert-info(role="alert" style="word-wrap: break-word;")
+            p#infoText #{text}
+
+    else
+        .alert.alert-secondary(role="alert" style="word-wrap:break-word")
+            h4.alert-heading Request
+            p
+                strong POST 
+                |#{deviceEndpointUrl}
+
+                -for(var prop in headers)
+                    br
+                    |#{prop}:#{headers[prop]}
+            dl.row(style="word-wrap:break-word")
+                -for(var prop in postData)
+                    dt.col-sm-2 #{prop}
+                    dd.dt.col-sm-10 #{postData[prop]}
+
+    div#fragmentResponseSection(style="display:none")
+        .alert.alert-success(role="alert" style="word-wrap: break-word;")
+            dl.row#fragmentResponseData(style="word-wrap: break-word;")
+                
+    div#details
+
+        if data.error
+
+            .alert.alert-danger(role="alert" style="word-wrap: break-word;")
+                dl.row(style="word-wrap: break-word;")
+                    
+                    -for(var prop in data)
+                        dt.col-sm-2 #{prop}
+                        dd.col-sm-10 #{data[prop]}
+        
+        else
+
+            .alert.alert-success(role="alert")
+                dl.row(style="word-wrap: break-word;")
+                    -for(var prop in data)
+
+                        if (prop == "id_token")
+                            dt.col-sm-2 id_token
+                                br
+                                button.btn.btn-primary.btn-sm#decodeIdTokenButton(type="button" onclick="decodeIdToken()") Decode
+                        else
+                            dt.col-sm-2 #{prop}
+                        dd.dt.col-sm-10 #{data[prop]}
+
+    .alert.alert-info#idTokenData(role="alert" style="display:none; word-wrap: break-word;")
+        h4.alert-heading id_token JWT data
+        if idTokenData
+            - idTokenData = JSON.stringify(idTokenData, null, 4)
+            pre #{idTokenData}
+
+    .mb-3.clearfix
+        a.btn.btn-danger.float-start(href="/" + path role="button")
+            i.bi.bi-arrow-repeat 
+            |Restart
+        
+        if !(data.error)
+            if (path == "device-code")
+                a.btn.btn-primary.float-end#nextButton(href="/" + path + "/token?user_code=" + data.user_code + "&verification_uri=" + data.verification_uri + "&device_code=" + data.device_code role="button")
+                    |Get access token 
+                    i.bi.bi-forward-fill
+            else
+                if (!data.access_token)
+                    a.btn.btn-primary.float-end#nextButton(href="/" + path + "/token?code=" + data.code role="button")
+                        |Use auth code to get access token 
+                        i.bi.bi-forward-fill
+                else            
+                    a.btn.btn-primary.float-end#nextButton(href="/" + path + "/user?access_token=" + data.access_token role="button")
+                        |Use access token to get user details 
+                        i.bi.bi-forward-fill
+
+    script.
+        function decodeIdToken() {
+                var elem = document.getElementById("idTokenData");
+                if (elem.style.display === "none") {
+                    elem.style.display = "block";
+                } else {
+                    elem.style.display = "none";
+                }
+            }
+
+
+    if (JSON.stringify(data) === "{}")
+        
+        script.
+
+            var path = "#{path}"
+            var authCode;
+            var accessToken;
+
+            // Update text
+            document.getElementById("infoText").innerText = "Data returned in URL fragment"
+
+            // Hide query/POST response section
+            document.getElementById("details").style = "display:none;"
+
+            // Show fragment response section
+            document.getElementById("fragmentResponseSection").style = "display:block;"
+
+            // Get data in url fragment
+            var urlFragmentParts = window.location.hash.substr(1).split("&");
+
+            // Insert data from url fragment into page
+            for (var i in urlFragmentParts) {
+
+                var parts = urlFragmentParts[i].split("=");
+
+                // Check for error
+                if (parts[0] == "error") {
+                    
+                    // Change alert style
+                    document.getElementById("fragmentResponseSection").childNodes[0].classList.remove("alert-success");
+                    document.getElementById("fragmentResponseSection").childNodes[0].classList.add("alert-danger");
+
+                    // Hide continue button
+                    document.getElementById("nextButton").style = "display:none";
+                }
+
+                // Check for error_description and decode
+                if (parts[0] == "error_description") {
+                    parts[1] = decodeURIComponent(parts[1]).replace(/\+/g," ").replace(/\r\n/g, "<br \/>");
+                }
+
+                // Check for error_uri and decode
+                if (parts[0] == "error_uri") {
+                    parts[1] = decodeURIComponent(parts[1]);
+                }
+
+                // Check for auth code
+                if (parts[0] == "code") {
+
+                    authCode = parts[1];
+                }
+
+                // Check for access token (implicit flow)
+                if (parts[0] == "access_token") {
+
+                    accessToken = parts[1];
+                }
+
+                // Write details to page
+                if (parts[0] == "id_token") {
+
+                    // Insert decoded data into page section
+                    var idTokenDataSection = JSON.parse(atob(parts[1].split(".")[1]));
+                    //var idTokenDataSection = atob(parts[1].split(".")[1]);
+                    
+                    //JSON.parse(Buffer.from(tokenResponse.id_token.split(".")[1], 'base64').toString('utf-8'));
+                    document.getElementById("idTokenData").innerHTML += "<pre>" + JSON.stringify(idTokenDataSection, null, 4) + "</pre>";
+
+                    document.getElementById("fragmentResponseData").innerHTML += "<dt class='col-sm-2'>id_token<br /><button class='btn btn-primary btn-sm' id='decodeIdTokenButton' type='button' onclick='decodeIdToken()'> Decode</button></dt>";
+                                
+                } else {
+                    document.getElementById("fragmentResponseData").innerHTML += "<dt class='col-sm-2'>" + parts[0] + "</dt>";
+                }
+
+                document.getElementById("fragmentResponseData").innerHTML += "<dd class='col-sm-10'>" + parts[1] + "</dd>";
+
+            }
+
+            // Update continue button
+            if (!accessToken) {
+                document.getElementById("nextButton").href = "/" + path + "/token?code=" + authCode
+            } else {
+                
+                // Update button link to go straight to user details page
+                document.getElementById("nextButton").href = "/" + path + "/user?access_token=" + accessToken
+
+                // Update button text
+                document.getElementById("nextButton").innerHTML = "Use access token to get user details <i class='bi bi-forward-fill'></i>";
+            }
+                
+                

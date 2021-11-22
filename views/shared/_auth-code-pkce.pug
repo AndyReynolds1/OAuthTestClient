@@ -1,0 +1,44 @@
+.alert.alert-primary(role="alert")
+    p This process requests an 
+        strong authorization code 
+        | from the authorize endpoint which is then exchanged for an 
+        strong access token 
+        |from the token endpoint.
+    p Proof Key for Code Exchange (PKCE) also includes a 
+        strong code_verifier 
+        |which is hashed and sent in the 
+        strong code_challenge 
+        |parameter to the authorization endpoint.
+    p The original plain text 
+        strong code_verifier 
+        |value is then included when requesting an access token and can be verified by the authorization server.
+    p This way, a malicious attacker can only intercept the authorization aode, and they cannot exchange it for a token without the original 
+        strong code_verifier 
+        |value.
+
+.alert.alert-info(role="alert")
+    h4.alert-heading Options
+    dl.row
+        dt.col-sm-2 response_type
+        dd.col-sm-10 Use 
+            strong code 
+            |for the authorization code flow.
+        dt.col-sm-2 scope
+        dd.col-sm-10 A space separated list of scopes you want to user to consent to.
+        dt.col-sm-2 response_mode
+        dd.col-sm-10 Request the response returned in either query string, url fragment or POST data.
+        dt.col-sm-2 state
+        dd.col-sm-10 An optional parameter that can be used to pass data in the request that will be returned in the token response. 
+            |A randomly generated unique value is typically used for preventing cross-site request forgery attacks. 
+            |The value can also encode information about the user's state in the app before the authentication request occurred, such as the page or view they were on.
+        dt.col-sm-2 code_challenge
+        dd.col-sm-10 A hash of a secret known as the  
+            strong code_verifier             
+        dt.col-sm-2 code_challenge_method
+        dd.col-sm-10 The method used to hash the 
+            strong code_verifier 
+            |when sent in the 
+            strong code_challenge
+            |.  This should be 
+            strong S256
+            |.

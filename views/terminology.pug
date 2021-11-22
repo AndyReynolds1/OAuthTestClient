@@ -1,0 +1,59 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 Termninology
+        p.lead Common OAuth terminology
+
+    h2 OAuth 2.0
+    p The OAuth 2.0 authorization framework is a protocol that allows a user to grant a third-party web site or application access to the user's protected resources, without necessarily revealing their long-term credentials or even their identity.
+    p OAuth introduces an authorization layer and separates the role of the client from that of the resource owner. In OAuth, the client requests access to resources controlled by the resource owner and hosted by the resource server and is issued a different set of credentials than those of the resource owner.
+    p Instead of using the resource owner's credentials to access protected resources, the client obtains an access token - a string denoting a specific scope, lifetime, and other access attributes.
+    p Access tokens are issued to third-party clients by an authorization server with the approval of the resource owner. Then the client uses the access token to access the protected resources hosted by the resource server.
+    
+    h2.mt-5 Roles
+    p The following roles are defined in OAuth 2.0:
+
+    .col-sm-10
+        dl.row
+        
+            dt.col-sm-3 Resource Owner
+            dd.col-sm-9 Entity that can grant access to a protected resource. Typically, this is the end-user.
+                
+            dt.col-sm-3 Client
+            dd.col-sm-9 Application requesting access to a protected resource on behalf of the 
+                strong Resource Owner
+                |.
+            
+            dt.col-sm-3 Resource Server
+            dd.col-sm-9 Server hosting the protected resources. This is the API you want to access.
+
+            dt.col-sm-3 Authorization Server
+            dd.col-sm-9 Server that authenticates the 
+                strong Resource Owner 
+                |and issues Access Tokens after getting proper authorization.
+
+            dt.col-sm-3 User Agent
+            dd.col-sm-9 Agent used by the 
+                strong Resource Owner 
+                |to interact with the 
+                strong Client 
+                |(for example, a browser or a native application).
+
+            dt.col-sm-3 OIDC
+            dd.col-sm-9 OpenID Connect (OIDC) is an authentication protocol built on OAuth 2.0 that you can use to securely sign in a user to an application.
+
+    h2.mt-5 Tokens
+    p OAuth 2.0 and OpenID Connect make extensive use of bearer tokens, generally represented as JWTs (JSON Web Tokens).
+    p A bearer token is a lightweight security token that grants the “bearer” access to a protected resource. In this sense, the “bearer” is anyone that gets a copy of the token.
+    p There are primarily 3 types of tokens used in OAuth 2.0 / OIDC:
+
+    .col-sm-10
+        dl.row
+        
+            dt.col-sm-3 Access Tokens
+            dd.col-sm-9 tokens that a resource server receives from a client, containing permissions the client has been granted.
+            dt.col-sm-3 ID  Tokens
+            dd.col-sm-9 tokens that a client receives from the authorization server, used to sign in a user and get basic information about them.
+            dt.col-sm-3 Refresh Tokens
+            dd.col-sm-9 used by a client to get new access and ID tokens over time. These are opaque strings, and are only understandable by the authorization server.

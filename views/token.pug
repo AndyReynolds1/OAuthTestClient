@@ -1,0 +1,74 @@
+extend shared/_layout
+
+block content
+
+    - var style = (error === true) ? "danger" : "success"
+
+    .text-center.mt-5
+        h1 #{title}
+        p.lead Request access token
+    
+    if (path == "device-code")
+        .alert.alert-info(role="alert")
+            p Goto 
+                a(href=verification_uri) #{verification_uri}
+                |  and enter code 
+                strong #{user_code}
+                |.
+            if (error)
+                p
+                    button.btn.btn-primary.btn-sm(type="button" onClick="location.reload();") Reload
+
+    .alert.alert-secondary(role="alert")
+        h4.alert-heading Request
+        p 
+            strong 
+                |POST 
+            |#{tokenUrl}
+            
+            -for(var prop in headers)
+                br
+                |#{prop}:#{headers[prop]}
+        dl.row(style="word-wrap:break-word")
+            -for(var prop in postData)
+                dt.col-sm-2 #{prop}
+                dd.dt.col-sm-10 #{postData[prop]}
+    
+    .alert(class="alert-" + style role="alert")
+        h4.alert-heading Response
+        dl.row(style="word-wrap:break-word")
+            
+            -for(var prop in tokenResponse)
+                if (prop == "id_token")
+                    dt.col-sm-2 id_token
+                        br
+                        button.btn.btn-primary.btn-sm#decodeIdTokenButton(type="button" onclick="decodeIdToken()") Decode
+                else
+                    dt.col-sm-2 #{prop}
+                dd.dt.col-sm-10 #{tokenResponse[prop]}
+
+    if (idTokenData)
+        .alert.alert-info#idTokenData(role="alert" style="display:none; word-wrap:break-word;")
+            h4.alert-heading id_token JWT data
+             - idTokenData = JSON.stringify(idTokenData, null, 4)
+            pre #{idTokenData}
+            
+        script.
+            function decodeIdToken() {
+                var elem = document.getElementById("idTokenData");
+                if (elem.style.display === "none") {
+                    elem.style.display = "block";
+                } else {
+                    elem.style.display = "none";
+                }
+            }
+
+    .mb-3.clearfix
+        a.btn.btn-danger.float-start(href="/" + path role="button")
+            i.bi.bi-arrow-repeat 
+            |Restart
+        
+        if (!error)
+            a.btn.btn-primary.float-end(href="/" + path + "/user?access_token=" + tokenResponse.access_token role="button")
+                |Use access token to get user details 
+                i.bi.bi-forward-fill

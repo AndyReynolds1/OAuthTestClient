@@ -1,0 +1,35 @@
+extend shared/_layout
+
+block content
+
+    - var style = (error === true) ? "danger" : "success"
+    - var apiResponseJson = JSON.stringify(apiResponse, null, 4)
+
+    .text-center.mt-5
+        h1 #{title}
+        
+        if (title === "Client Credentials")
+            p.lead Get application details
+        else
+            p.lead Get user details
+
+    .alert.alert-secondary(role="alert" style="word-wrap:break-word")
+        h4.alert-heading Request
+        p
+            strong GET 
+                |#{apiUrl}
+
+            -for(var prop in headers)
+                br
+                |#{prop}:#{headers[prop]}
+            
+    .alert(class="alert-" + style role="alert")
+        h4.alert-heading Response  
+        
+        pre #{apiResponseJson}
+
+    .row.mb-3 
+        p
+            a.btn.btn-danger(href="/" + path role="button")
+                i.bi.bi-arrow-repeat 
+                |Restart

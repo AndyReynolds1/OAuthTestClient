@@ -1,0 +1,97 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 #{title}
+        p.lead Set options
+    
+    // Info on current flow
+    if (mode == "auth-code")
+        include shared/_auth-code
+    if (mode == "auth-code-pkce")
+        include shared/_auth-code-pkce
+    if (mode == "client-credentials")
+        include shared/_client-credentials
+    if (mode == "implicit")
+        include shared/_implicit
+    if (mode == "hybrid")
+        include shared/_hybrid
+    if (mode == "device-code")
+        include shared/_device-code
+
+    .row-mt-3
+        form(action=action method="post")
+            
+            if (mode == "client-credentials")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="grant_type")|grant_type
+                    .col-sm-5
+                        input#grant_type.form-control(type='text' name="grant_type" value=grant_type readonly)
+            
+            if (mode == "device-code")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="client_id")|client_id
+                    .col-sm-5
+                        input#client_id.form-control(type='text' name="client_id" value=client_id readonly)
+            
+            if (mode == "auth-code" || mode == "auth-code-pkce" || mode == "hybrid" || mode == "implicit")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="response_type")|response_type
+                    .col-sm-5
+                        input#reponse_type.form-control(type='text' name="response_type" value=response_type readonly)
+
+            .row.mb-3
+                label.col-sm-2.col-form-label(for="scope")|scope
+                .col-sm-5
+                    input#scope.form-control(type='text' name="scope" value=scope)
+
+            if (mode != "client-credentials" && mode != "device-code")
+                fieldset.row.mb-3
+                    legend.col-form-label.col-sm-2.pt-0 response_mode
+                    .col-sm-5
+                        .form-check
+                            if (mode == "hybrid" || mode == "implicit")
+                                input.form-check-input(type="radio" name="response_mode" id="response_mode1" value="query" disabled)
+                            else 
+                                input.form-check-input(type="radio" name="response_mode" id="response_mode1" value="query" checked)
+                            label.form-check-label(for="response_mode1") query
+                        .form-check
+                            input.form-check-input(type="radio" name="response_mode" id="response_mode2" value="fragment")
+                            label.form-check-label(for="response_mode2") fragment
+                        .form-check
+                            if (mode == "hybrid" || mode == "implicit")
+                                input.form-check-input(type="radio" name="response_mode" id="response_mode3" value="form_post" checked)
+                            else
+                                input.form-check-input(type="radio" name="response_mode" id="response_mode3" value="form_post")
+                            label.form-check-label(for="response_mode3") form_post
+
+            if (mode != "client-credentials" && mode != "device-code")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="state")|state
+                    .col-sm-5
+                        input#state.form-control(type='text' name="state")
+            
+            if (mode == "auth-code-pkce")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="code_verifier")|code_verifier
+                    .col-sm-5
+                        input#code_challenge.form-control(type='text' name="code_verifier" value=code_verifier readonly)
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="code_challenge_method")|code_challenge_method
+                    .col-sm-5
+                        input#code_challenge_method.form-control(type='text' name="code_challenge_method" value=code_challenge_method readonly)
+            
+            if (mode == "hybrid" || mode == "implicit")
+                .row.mb-3
+                    label.col-sm-2.col-form-label(for="nonce")|nonce
+                    .col-sm-5
+                        input#nonce.form-control(type='text' name="nonce" value=nonce readonly)
+
+            if (mode != "client-credentials" && mode != "device-code")
+                .row.mb-3
+                    .col-sm-5.offset-sm-2
+                        .form-check
+                            input#prompt.form-check-input(type="checkbox" name="prompt")
+                            label.form-check-label(for="prompt") Force consent
+            
+            button.btn.btn-primary(type='submit') Submit
