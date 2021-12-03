@@ -8,7 +8,7 @@ const functions = require("../functions");
 
 var title = "Auth Code";
 var path = "auth-code";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
+var callbackUrl = config.url + ":" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/auth-code", (req, res) => {

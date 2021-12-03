@@ -9,7 +9,7 @@ const functions = require("../functions");
 
 var title = "Implcit";
 var path = "implicit";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
+var callbackUrl = config.url + ":" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/implicit", (req, res) => {

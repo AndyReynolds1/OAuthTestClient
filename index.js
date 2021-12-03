@@ -29,5 +29,5 @@ app.use(require("./routes/device-code"));
 
 // Server Activation
 app.listen(config.port, () => {
-    console.log(`Listening to requests on http://localhost:${config.port}`);
+    console.log(`Listening to requests on ${config.url}:${config.port}`);
 });

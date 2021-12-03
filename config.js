@@ -1,6 +1,7 @@
 // https://login.microsoftonline.com/common/v2.0/.well-known/openid-configuration
 
 module.exports = {
+  url: process.env.URL || "http://localhost",
   port: process.env.PORT || 8000,
   authorization_endpoint: process.env.AUTHZ_ENDPOINT || "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/authorize",
   token_endpoint: process.env.TOKEN_ENDPOINT || "https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token",

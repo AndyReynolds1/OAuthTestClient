@@ -10,7 +10,7 @@ const functions = require("../functions");
 
 var title = "Auth Code With PKCE";
 var path = "auth-code-pkce";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
+var callbackUrl = config.url + ":" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/auth-code-pkce", (req, res) => {

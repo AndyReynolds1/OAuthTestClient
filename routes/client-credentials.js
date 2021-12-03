@@ -8,7 +8,6 @@ const functions = require("../functions");
 
 var title = "Client Credentials";
 var path = "client-credentials";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/client-credentials", (req, res) => {
