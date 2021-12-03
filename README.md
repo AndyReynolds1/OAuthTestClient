@@ -75,7 +75,7 @@ The app will be available at [http://localhost:8000](http://localhost:8000).
 
 ## Docker version
 
-A docker image for this app is also available: [areynolds762/oauthtestclient](https://hub.docker.com/repository/docker/areynolds762/oauthtestclient)
+A docker image for this app is also available: [areynolds762/oauthtestclient](https://hub.docker.com/r/areynolds762/oauthtestclient)
 
 The following environment variables need to be set on the container to configure the app:
 
