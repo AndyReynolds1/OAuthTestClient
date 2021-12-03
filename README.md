@@ -1,12 +1,5 @@
 # OAuth 2.0 Test Client
 
-- [Overview](#overview)
-- [Screenshots](#screenshots)
-- [Run Locally](#run-locally)
-- [Docker Version](#docker-version)
-
-## Overview
-
 A small Node.js web app to test the following OAuth 2.0 flows:
 
 - Authorization Code
@@ -16,21 +9,23 @@ A small Node.js web app to test the following OAuth 2.0 flows:
 - Hybrid
 - Device Code
 
+This app can either be [run locally](#running-locally) or is available as a [Docker image](#docker-version).
+
+- [Screenshots](#screenshots)
+- [Running Locally](#running-locally)
+- [Docker Version](#docker-version)
+
 ## Screenshots
 
 ![Screenshot](/docs/screenshot-1.png)
 ![Screenshot](/docs/screenshot-2.png)
 ![Screenshot](/docs/screenshot-3.png)
 
-## Run locally
+## Setup
 
-### Setup
-
-Requires having [Node.js](https://nodejs.org/en/download/) installed.
-
-Edit `config.js` to set endpoint URLs for your authorization server.
-
-Register an application with your authorization server and configure the following callback URLs:
+1. Register an application with your authorization server
+2. Generate a client secret for your application and make a note of this
+3. Configure the following callback URLs in your application:
 
 ```bash
 http://localhost:8000/auth-code/callback
@@ -39,9 +34,31 @@ http://localhost:8000/hybrid/callback
 http://localhost:8000/implicit/callback
 ```
 
-Generate a client secret for your application and edit the `clientId` and `clientSecret` values in `config.js` for your application.
+**If using the Docker version amend the callback URLs in your application to match the URL/port of your Docker container**.
 
-### Running
+## Running locally
+
+Ensure you have [Node.js](https://nodejs.org/en/download/) installed.
+
+Edit the following values in `config.js` for your application:
+
+- `authorization_endpoint` Authorization endpoint URL
+- `token_endpoint` Token endpoint URL
+- `userinfo_endpoint` User info endpoint URL
+- `device_authorization_endpoint` Device authorization endpoint URL
+- `userSearch_endpoint` User search endpoint URL
+- `clientId` Client ID of your application
+- `clientSecret` Client secret for your application
+- `userId` A user ID to search for when using the Client Credentials flow
+
+You can also optionally set the following if you wish to override the default values:
+
+- `code_verifier` Value to use for the `code_verifier`
+- `url` Base URL of the website
+- `port` To overide the default port the website will run on
+
+Note that changes to the `url` and `port` values will need to be reflected in the listed callback URLs for your registered application.
+
 Install required depencies (only needed once):
 
 ```bash
@@ -54,13 +71,13 @@ Run the app:
 node index.js
 ```
 
-App will be available at [http://localhost:8000](http://localhost:8000)
+The app will be available at [http://localhost:8000](http://localhost:8000).
 
 ## Docker version
 
 A docker image for this app is also available: [areynolds762/oauthtestclient](https://hub.docker.com/repository/docker/areynolds762/oauthtestclient)
 
-The following environment variables need to be set when running the container to configure the app:
+The following environment variables need to be set on the container to configure the app:
 
 - `URL` Base URL of the website
 - `PORT` To overide the default port the website will run on
