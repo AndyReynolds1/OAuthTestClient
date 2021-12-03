@@ -9,7 +9,7 @@ const functions = require("../functions");
 
 var title = "Hybrid";
 var path = "hybrid";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
+var callbackUrl = config.url + ":" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/hybrid", (req, res) => {

@@ -8,7 +8,6 @@ const functions = require("../functions");
 
 var title = "Device Code";
 var path = "device-code";
-var callbackUrl = "http://localhost:" + config.port + "/" + path + "/callback";
 
 // home
 router.get("/device-code", (req, res) => {
