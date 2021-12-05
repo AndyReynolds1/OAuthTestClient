@@ -22,6 +22,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags:
-            - ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:latest
-            - ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:${{ GITHUB_RUN_ID }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:${{ GITHUB_RUN_ID }}
