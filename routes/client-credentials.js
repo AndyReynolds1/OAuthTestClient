@@ -68,7 +68,7 @@ router.post("/client-credentials/token", (req, res) => {
 // user
 router.get("/client-credentials/user", (req, res) => {
 
-    functions.getuserDetailsFromApi(req, res, title, path, config.userId);
+    functions.getUserDetailsFromApi(req, res, title, path, config.userId);
 
 });
 

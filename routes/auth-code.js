@@ -1,7 +1,5 @@
 const express = require("express");
 var router = express.Router();
-const axios = require("axios");
-const url = require("url");
 
 const config = require("../config");
 const functions = require("../functions");
@@ -87,11 +85,8 @@ router.post("/auth-code/callback", (req, res) => {
 // token
 router.get("/auth-code/token", (req, res) => {
 
-    var tokenUrl = config.token_endpoint;
-    var headers = {"Content-Type": "application/x-www-form-urlencoded"};
-
     // Build post data
-    var data = {
+    var postData = {
         client_id: config.clientId,
         code: req.query.code,
         redirect_uri: callbackUrl,
@@ -99,46 +94,14 @@ router.get("/auth-code/token", (req, res) => {
         client_secret: config.clientSecret
     }
     
-    var apiResponse;
-    var apiError;
-    var idTokenData;
+    functions.getAccessToken(req, res, postData, title, path);
 
-    axios.post(tokenUrl, new url.URLSearchParams(data), { headers: headers}).then(response => {
-
-        apiResponse = response.data;
-
-        // Check for id_token JWT when using OIDC scopes
-        if (apiResponse.id_token) {
-            idTokenData = JSON.parse(Buffer.from(apiResponse.id_token.split(".")[1], 'base64').toString('utf-8'));
-        }
-
-    }).catch(error => {
-        console.log("ERROR!");
-        console.log(error.response.data);
-
-        apiResponse = error.response.data;
-        apiError = true;
-            
-    }).then(function () {
-
-        res.render("token", {
-            title: title,
-            tokenUrl: tokenUrl,
-            headers: headers,
-            postData: data,
-            tokenResponse: apiResponse,
-            idTokenData: idTokenData,
-            error: apiError,
-            path: path
-        })
-
-    });
 });
 
 // user
 router.get("/auth-code/user", (req, res) => {
 
-    functions.getuserDetailsFromApi(req, res, title, path);
+    functions.getUserDetailsFromApi(req, res, title, path);
 
 });
 

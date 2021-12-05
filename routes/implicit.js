@@ -99,7 +99,7 @@ router.post("/implicit/callback", (req, res) => {
 // user
 router.get("/implicit/user", (req, res) => {
 
-    functions.getuserDetailsFromApi(req, res, title, path);
+    functions.getUserDetailsFromApi(req, res, title, path);
 
 });
 

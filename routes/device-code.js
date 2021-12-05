@@ -114,7 +114,7 @@ router.get("/device-code/token", (req, res) => {
 // user
 router.get("/device-code/user", (req, res) => {
 
-    functions.getuserDetailsFromApi(req, res, title, path);
+    functions.getUserDetailsFromApi(req, res, title, path);
 
 });
 
