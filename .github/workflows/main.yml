@@ -23,5 +23,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:${{ env.GITHUB_RUN_ID }}
+            "${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:latest"
+            "${{ secrets.DOCKERHUB_USERNAME }}/oauthtestclient:${{ env.GITHUB_RUN_ID }}"
