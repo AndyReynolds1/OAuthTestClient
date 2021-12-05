@@ -36,6 +36,11 @@ html(lang='en')
                                 a.nav-link.active(aria-current='page', href='/terminology') Terminology
                             else 
                                 a.nav-link(aria-current='page', href='/terminology') Terminology
+                        li.nav-item
+                            if navLink == 'config'
+                                a.nav-link.active(aria-current='page', href='/config') Config
+                            else 
+                                a.nav-link(aria-current='page', href='/config') Config
 
         // Page content
         .container

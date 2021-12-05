@@ -1,0 +1,16 @@
+extend shared/_layout
+
+block content
+    .text-center.mt-5
+        h1 Config
+        p.lead Current site config
+
+    .alert.alert-secondary(role="alert")
+        dl.row
+            -for(var prop in config)
+                dt.col-sm-3 #{prop}
+
+                if (prop!="clientSecret")
+                    dd.col-sm-9 #{config[prop]}
+                else
+                    dd.col-sm-9 **********

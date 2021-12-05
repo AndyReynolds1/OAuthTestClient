@@ -19,6 +19,9 @@ app.get("/", (req, res) => {
 app.get("/terminology", (req, res) => {
     res.render("terminology", { navLink: "terminology", title: "Home" });
 });
+app.get("/config", (req, res) => {
+    res.render("config", { navLink: "config", title: "Config", config: config });
+});
 
 app.use(require("./routes/auth-code"));
 app.use(require("./routes/auth-code-pkce"));
