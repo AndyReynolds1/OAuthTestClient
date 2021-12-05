@@ -22,6 +22,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: |
-            areynolds762/oauthtestclient:latest
-            areynolds762/oauthtestclient:${{ env.GITHUB_RUN_ID }}
+          tags: areynolds762/oauthtestclient:latest
