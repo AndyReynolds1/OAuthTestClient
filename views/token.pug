@@ -32,7 +32,10 @@ block content
         dl.row(style="word-wrap:break-word")
             -for(var prop in postData)
                 dt.col-sm-2 #{prop}
-                dd.dt.col-sm-10 #{postData[prop]}
+                if (prop!="client_secret")
+                    dd.dt.col-sm-10 #{postData[prop]}
+                else
+                    dd.dt.col-sm-10 **********
     
     .alert(class="alert-" + style role="alert")
         h4.alert-heading Response
