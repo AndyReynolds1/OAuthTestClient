@@ -7,7 +7,7 @@ const str = require('@supercharge/strings')
 const config = require("../config");
 const functions = require("../functions");
 
-var title = "Implcit";
+var title = "Implicit";
 var path = "implicit";
 var callbackUrl = config.url + ":" + config.port + "/" + path + "/callback";
 
