@@ -25,7 +25,7 @@ module.exports = {
     
         }).catch(error => {
             console.log("ERROR!");
-            console.log(error.response.data);
+            console.log(error);
     
             apiResponse = error.response.data;
             apiError = true;
@@ -48,7 +48,7 @@ module.exports = {
     // Function to lookup current user from userinfo API, or if using the client credentials flow searches for a specific user ID via the user search API
     getUserDetailsFromApi: function (req, res, title, path, userId) {
         
-        var apiUrl =  !userId ? config.userinfo_endpoint : config.userSearch_endpoint + "/" + userId;
+        var apiUrl =  !userId ? config.userinfo_endpoint : config.userSearch_endpoint + "/" + encodeURIComponent(userId);
         var authHeader = "Bearer " + req.query.access_token;
         var headers = { "Authorization": authHeader };
 
