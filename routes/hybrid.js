@@ -20,7 +20,7 @@ router.get("/hybrid", (req, res) => {
         title: title,
         action: "/" + path + "/initiate",
         response_type: "id_token code",
-        scope: "https://graph.microsoft.com/user.read openid",
+        scope: "user.read openid",
         nonce: nonce
     });
 });

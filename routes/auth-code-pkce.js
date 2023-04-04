@@ -18,7 +18,7 @@ router.get("/auth-code-pkce", (req, res) => {
         title: title,
         action: "/" + path + "/initiate",
         response_type: "code",
-        scope: "https://graph.microsoft.com/user.read",
+        scope: "user.read",
         code_verifier: config.code_verifier,
         code_challenge_method: "S256"
     });

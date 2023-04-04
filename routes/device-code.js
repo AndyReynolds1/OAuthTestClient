@@ -17,7 +17,7 @@ router.get("/device-code", (req, res) => {
         title: title,
         action: "/" + path + "/initiate",
         client_id: config.clientId,
-        scope: "https://graph.microsoft.com/user.read"
+        scope: "user.read"
     });
 });
 

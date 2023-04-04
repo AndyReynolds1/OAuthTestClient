@@ -16,7 +16,7 @@ router.get("/auth-code", (req, res) => {
         title: title,
         action: "/" + path + "/initiate",
         response_type: "code",
-        scope: "https://graph.microsoft.com/user.read"
+        scope: "user.read"
     });
 });
 

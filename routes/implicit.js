@@ -22,7 +22,7 @@ router.get("/implicit", (req, res) => {
         title: title,
         action: "/" + path + "/initiate",
         response_type: "token",
-        scope: "https://graph.microsoft.com/user.read",
+        scope: "user.read",
         nonce: nonce
     });
 });
